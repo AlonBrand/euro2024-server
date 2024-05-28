@@ -1,12 +1,7 @@
 from flask import Flask, request, redirect
 from flask_cors import CORS
-# import jsonify
-# import json
 from utils.file_manager import *
 from utils.utils import *
-# import sqlite3
-# import threading
-# import requests
 import mysql.connector
 
 
