@@ -30,10 +30,9 @@ def calculate_score():
         curser.execute("SELECT * FROM Users")
         users = curser.fetchall()
 
-
-
         for user in users:
-            curr_points=0
+            curr_points = 0
+            user_id = -1
             for game in games:
                 if(len(game) > 4):
                     game_id = game[0]

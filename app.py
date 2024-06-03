@@ -1,6 +1,5 @@
 from flask import Flask, request, redirect
 from flask_cors import CORS
-from utils.file_manager import *
 from utils.utils import *
 import mysql.connector
 
@@ -29,10 +28,15 @@ def connect_to_db():
 
 @app.route('/')
 def home():
-    return {
-        "msg": "Server is runnig..."
-    }
-
+    try:
+        return {
+            "msg": "Server is runnig..."
+        }
+    except Exception as e:
+        print(e)
+        return {
+            'msg': 'Failed to run application',
+        }
     # headers = {
     #     'Authorization': 'Bearer {token}'.format(token=api_tokken),
     #     'Content-Type': 'application/json',
@@ -63,21 +67,20 @@ def sign_up_func():
         params = (user_name, password, 0)
         curser.execute(query, params)
         user_id = curser.lastrowid
-        print(user_id)
         connection.commit()
-        # connection.close()
 
     except Exception as e:
         print(e)
         return {
-            'user_name': 'fake',
-            'msg': str(e)
+            'msg': 'Failed to join :(',
+            'success': False
         }
      
     return {
         'user_name': user_name,
-        'msg': 'User Connected',
-        'user_id': user_id
+        'msg': '10X for joining!',
+        'user_id': user_id,
+        'success': True
     }
 
 @app.route('/log-in', methods=['POST'])
@@ -137,9 +140,13 @@ def log_in_func():
 def bet_on_game():
     print(request.get_json())
     game_id = request.get_json()['gameId']
+    print("🚀 ~ game_id:", game_id)
     user_id = request.get_json()['userId']
+    print("🚀 ~ user_id:", user_id)
     scoreA = request.get_json()['scoreA']
+    print("🚀 ~ scoreA:", scoreA)
     scoreB = request.get_json()['scoreB']
+    print("🚀 ~ scoreB:", scoreB)
     query = ''
     bet_id = None
     try:
@@ -163,7 +170,6 @@ def bet_on_game():
 
         curser.execute(query, params)
         connection.commit()
-        # connection.close()
 
     except Exception as e:
         print(e)
@@ -204,8 +210,7 @@ def bet_real_score():
         connection.commit()
 
         calculate_score()
-
-        # connection.close()
+        connection.close()
 
     except Exception as e:
         print(e)
@@ -261,6 +266,7 @@ def get_side_bets():
 
         curser.execute("SELECT * FROM SideBets")
         side_bets = curser.fetchall()
+        print("🚀 ~ side_bets:", side_bets)
 
         # if len(bets) > 0 and len(bets[0]) > 0:
         #     bet_id = bets[0][0]
@@ -330,20 +336,21 @@ def get_user_side_bets(user_id):
         curser.execute("SELECT * FROM SideBets WHERE userId=%s", (user_id,))
         # if len(curser.fetchall()) > 0:
         side_bets = curser.fetchall()[0]
+
+        if side_bets is not None and len(side_bets) > 2:
+            return {
+                'winningTeam': side_bets[2],
+                'topScorer': side_bets[3]
+            }
+        else:
+            return {
+                'msg': 'No side bets!' 
+            }
     except Exception as e:
         return {
-            'msg': e 
+            'msg': str(e) 
         }
 
-    if side_bets is not None and len(side_bets) > 2:
-        return {
-            'winningTeam': side_bets[2],
-            'topScorer': side_bets[3]
-        }
-    else:
-        return {
-            'msg': 'No side bets!' 
-        }
 
 @app.route('/get-bets/<game_id>') 
 def get_bets(game_id):
@@ -371,7 +378,7 @@ def clean_users():
     try:
         connection = connect_to_db()
         curser = connection.cursor()
-        curser.execute("DELETE FROM Users;")
+        curser.execute("DELETE FROM Bets;")
         connection.commit()
         return {
             "msg": "Users were deleted!"
