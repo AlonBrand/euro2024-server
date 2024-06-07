@@ -25,6 +25,11 @@ def connect_to_db():
     except Exception as e:
         print(e)
 
+# Add CORS headers to all responses
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 @app.route('/')
 def home():
