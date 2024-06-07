@@ -7,7 +7,7 @@ import mysql.connector
 api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "https://singular-douhua-06386a.netlify.app"}})
 # app.config['SESSION_TYPE'] = 'filesystem'
 # app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = 'oh_so_secret'
