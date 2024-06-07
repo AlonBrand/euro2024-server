@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request
 from flask_cors import CORS
 from utils.utils import *
 import mysql.connector
@@ -6,7 +6,7 @@ import mysql.connector
 
 api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
 
-app = Flask(__name__, static_folder="./wc2022/build/static", template_folder="./wc2022/build")
+app = Flask(__name__)
 cors = CORS(app)
 # app.config['SESSION_TYPE'] = 'filesystem'
 # app.config['CORS_HEADERS'] = 'Content-Type'
