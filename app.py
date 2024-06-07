@@ -8,6 +8,7 @@ api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhY
 
 app = Flask(__name__)
 CORS(app)  # Apply CORS middleware globally to all routes
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['SECRET_KEY'] = 'oh_so_secret'
 db_url = "server.oversight.co.il"
