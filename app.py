@@ -6,7 +6,7 @@ import mysql.connector
 
 api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='assets')
 CORS(app)  # Apply CORS middleware globally to all routes
 
 app.config['SECRET_KEY'] = 'oh_so_secret'
