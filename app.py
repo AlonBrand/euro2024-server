@@ -7,7 +7,7 @@ import mysql.connector
 api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 # app.config['SESSION_TYPE'] = 'filesystem'
 # app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = 'oh_so_secret'
@@ -25,11 +25,6 @@ def connect_to_db():
     except Exception as e:
         print(e)
 
-# Add CORS headers to all responses
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
 
 @app.route('/')
 def home():
