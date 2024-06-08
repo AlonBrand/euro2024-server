@@ -1,1 +1,1 @@
-web: gunicorn myapp.wsgi --log-file - --bind 0.0.0.0:$PORT
+web: gunicorn -b 0.0.0.0:$PORT your_module_name:app
