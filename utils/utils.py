@@ -1,14 +1,18 @@
 import mysql.connector
-db_url = "server.oversight.co.il"
+import os
+from dotenv import load_dotenv
 
+# db_url = "server.oversight.co.il"
+load_dotenv()  # Load environment variables from .env file
 
 def connect_to_db():
+    print(os.environ.get("DB_HOST"))
     try:
         connection = mysql.connector.connect(
-            host=db_url,
-            user="rotem_private",
-            password="T$l3715ml",
-            database="rotem_private"
+            host=os.environ.get("DB_HOST"),
+            user=os.environ.get("DB_USER"),
+            password=os.environ.get("DB_PASSWORD"),
+            database=os.environ.get("DB_NAME"),
         )
         return connection
     except Exception as e:
