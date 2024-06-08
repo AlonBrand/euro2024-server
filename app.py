@@ -37,7 +37,6 @@ def home():
     # print(jsonify(response))
 
 
-
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up_func():
     user_name = request.get_json()['name']
