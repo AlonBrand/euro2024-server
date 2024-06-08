@@ -1,30 +1,14 @@
 from flask import Flask, request
 from flask_cors import CORS
 from utils.utils import *
-import mysql.connector
 
-
-api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
+# api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
 
 app = Flask(__name__)
 CORS(app)  # Apply CORS middleware globally to all routes
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['SECRET_KEY'] = 'oh_so_secret'
 db_url = "server.oversight.co.il"
-
-def connect_to_db():
-    try:
-        connection = mysql.connector.connect(
-            host=db_url,
-            user="rotem_private",
-            password="T$l3715ml",
-            database="rotem_private"
-        )
-        return connection
-    except Exception as e:
-        print(e)
-
 
 @app.route('/')
 def home():
