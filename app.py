@@ -3,12 +3,9 @@ from flask import Flask, request
 from flask_cors import CORS
 from utils.utils import *
 
-# api_tokken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzcyOGIwYmZkOWFhYzIyNjcwNDUwMTAiLCJpYXQiOjE2Njg0NTEwODMsImV4cCI6MTY2ODUzNzQ4M30.0G3IlX1E8S4XyDQLXieaArzjLTlsXFqpcG2iKCfb7yw"
-
 app = Flask(__name__)
 CORS(app)  # Apply CORS middleware globally to all routes
 
-app.config['SECRET_KEY'] = 'oh_so_secret'
 db_url = "server.oversight.co.il"
 
 @app.route('/')
@@ -252,6 +249,9 @@ def get_side_bets():
         side_bets = curser.fetchall()
         print("🚀 ~ side_bets:", side_bets)
 
+        curser.execute("SELECT * FROM Users")
+        users = curser.fetchall()
+
         # if len(bets) > 0 and len(bets[0]) > 0:
         #     bet_id = bets[0][0]
 
@@ -270,7 +270,8 @@ def get_side_bets():
         }
 
     return {
-        'side_bets': side_bets
+        'side_bets': side_bets,
+        'users': users
     }
 
 
