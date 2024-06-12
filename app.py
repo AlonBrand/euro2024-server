@@ -322,10 +322,14 @@ def get_user_side_bets(user_id):
         # if len(curser.fetchall()) > 0:
         side_bets = curser.fetchall()[0]
 
+        curser.execute("SELECT * FROM Users")
+        users = curser.fetchall()
+
         if side_bets is not None and len(side_bets) > 2:
             return {
                 'winningTeam': side_bets[2],
-                'topScorer': side_bets[3]
+                'topScorer': side_bets[3],
+                'users': users
             }
         else:
             return {
