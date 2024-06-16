@@ -2,26 +2,26 @@ import os
 from flask import Flask, request
 from flask_cors import CORS
 from utils.utils import *
-from flask_socketio import SocketIO, send, emit
-import random
+# from flask_socketio import SocketIO, send, emit
+# import random
 
 app = Flask(__name__)
 CORS(app)  # Apply CORS middleware globally to all routes
-socketio = SocketIO(app, cors_allowed_origins="*")
-random_names = ['Eliyahu', 'Ben Zini', 'Charlie', 'Dick', 'Eliko', 'Frank', 'Jenia', 'Hannah']
+# socketio = SocketIO(app, cors_allowed_origins="*")
+# random_names = ['Eliyahu', 'Ben Zini', 'Charlie', 'Dick', 'Eliko', 'Frank', 'Jenia', 'Hannah']
 
 db_url = "server.oversight.co.il"
 
-@socketio.on('message')
-def handle_message(message):
-    random_name = random.choice(random_names)
-    print('received message: ' + message)
-    send(random_name + ": " + message)
+# @socketio.on('message')
+# def handle_message(message):
+#     random_name = random.choice(random_names)
+#     print('received message: ' + message)
+#     send(random_name + ": " + message)
 
-@socketio.on('custom_event')
-def handle_custom_event(json):
-    print('received json: ' + str(json))
-    emit('response', {'data': 'got it!'})
+# @socketio.on('custom_event')
+# def handle_custom_event(json):
+#     print('received json: ' + str(json))
+#     emit('response', {'data': 'got it!'})
 
 @app.route('/')
 def home():
